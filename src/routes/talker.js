@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const { readFile } = require('../middlewares/handleFile');
+const { getAllTalkers } = require('../middlewares/talkerMidds');
 
 const talkerRouter = Router();
 
 talkerRouter.get('/', async (_req, res) => {
-  const talker = await readFile();
+  const talker = await getAllTalkers();
   res.status(200).send(talker);
 });
 
