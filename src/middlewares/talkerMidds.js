@@ -20,8 +20,24 @@ const postTalker = async (newTalker) => {
   return newTalkerData;
 };
 
+const putTalker = async (id, editedData) => {
+  const talkersList = await readFile();
+  const talker = talkersList.find((element) => element.id === +id);
+
+  if (!talker) return false;
+
+  talker.name = editedData.name;
+  talker.age = editedData.age;
+  talker.talk.watchedAt = editedData.talk.watchedAt;
+  talker.talk.rate = editedData.talk.rate;
+
+  writeFile(talkersList);
+  return talker;
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   postTalker,
+  putTalker,
 };
