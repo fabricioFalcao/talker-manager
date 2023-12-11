@@ -12,6 +12,16 @@ const readFile = async () => {
   }
 };
 
+const writeFile = async (list) => {
+  try {
+    await fs.writeFile(filePath, JSON.stringify(list, null, 2));
+  } catch (error) {
+    console.error('Erro ao salvar o arquivo', error.message);
+    return null;
+  }
+};
+
 module.exports = {
   readFile,
+  writeFile,
 };
