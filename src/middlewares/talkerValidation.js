@@ -47,7 +47,7 @@ const validTalk = (talk, res) => {
     || validRate(talk.rate, res);
 };
 
-module.exports = (req, res, next) => {
+const talkerValidation = (req, res, next) => {
   const { authorization: token } = req.headers;
   const { name, age, talk } = req.body;
 
@@ -56,4 +56,15 @@ module.exports = (req, res, next) => {
     || validAge(age, res)
     || validTalk(talk, res)
     || next();
+};
+
+const tokenValidation = (req, res, next) => {
+  const { authorization: token } = req.headers;
+
+  return validToken(token, res) || next();
+};
+
+module.exports = {
+  talkerValidation,
+  tokenValidation,
 };

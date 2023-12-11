@@ -4,8 +4,9 @@ const {
   getTalkerById,
   postTalker,
   putTalker,
+  deleteTalker,
 } = require('../middlewares/talkerMidds');
-const talkerValidation = require('../middlewares/talkerValidation');
+const { talkerValidation, tokenValidation } = require('../middlewares/talkerValidation');
 
 const talkerRouter = Router();
 
@@ -34,6 +35,15 @@ talkerRouter.put('/:id', talkerValidation, async (req, res) => {
   const editedTalker = await putTalker(id, editedData);
   if (!editedTalker) return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   res.status(200).json(editedTalker);
+});
+
+talkerRouter.delete('/:id', tokenValidation, async (req, res) => {
+  const { id } = req.params;
+  const response = await deleteTalker(id);
+
+  if (response) return res.status(204).end();
+
+  return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
 });
 
 module.exports = talkerRouter;

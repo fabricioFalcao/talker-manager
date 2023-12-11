@@ -35,9 +35,21 @@ const putTalker = async (id, editedData) => {
   return talker;
 };
 
+const deleteTalker = async (id) => {
+  const talkersList = await readFile();
+  const validId = talkersList.some((element) => element.id === +id);
+
+  if (!validId) return false;
+
+  const updatedList = talkersList.filter((element) => element.id !== +id);
+  await writeFile(updatedList);
+  return true;
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   postTalker,
   putTalker,
+  deleteTalker,
 };
