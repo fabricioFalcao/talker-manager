@@ -8,6 +8,14 @@ const getTalkerById = async (id) => {
   return talker;
 };
 
+const getTalkerByName = async (term) => {
+  const talkersList = await readFile();
+
+  if (!term) return talkersList;
+
+  return talkersList.filter(({ name }) => name.toLowerCase().includes(term.toLowerCase()));
+};
+
 const postTalker = async (newTalker) => {
   const talkersList = await readFile();
 
@@ -52,4 +60,5 @@ module.exports = {
   postTalker,
   putTalker,
   deleteTalker,
+  getTalkerByName,
 };

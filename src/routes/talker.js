@@ -5,6 +5,7 @@ const {
   postTalker,
   putTalker,
   deleteTalker,
+  getTalkerByName,
 } = require('../middlewares/talkerMidds');
 const { talkerValidation, tokenValidation } = require('../middlewares/talkerValidation');
 
@@ -13,6 +14,12 @@ const talkerRouter = Router();
 talkerRouter.get('/', async (_req, res) => {
   const talker = await getAllTalkers();
   res.status(200).send(talker);
+});
+
+talkerRouter.get('/search', tokenValidation, async (req, res) => {
+  const { q } = req.query;
+  const result = await getTalkerByName(q);
+  res.status(200).json(result);
 });
 
 talkerRouter.get('/:id', async (req, res) => {
