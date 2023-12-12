@@ -16,6 +16,12 @@ const getTalkerByName = async (term) => {
   return talkersList.filter(({ name }) => name.toLowerCase().includes(term.toLowerCase()));
 };
 
+const getTalkerByRate = async (qResult, rate) => {
+  if (!rate) return qResult;
+
+  return qResult.filter(({ talk }) => talk.rate === +rate)
+};
+
 const postTalker = async (newTalker) => {
   const talkersList = await readFile();
 
@@ -61,4 +67,5 @@ module.exports = {
   putTalker,
   deleteTalker,
   getTalkerByName,
+  getTalkerByRate,
 };

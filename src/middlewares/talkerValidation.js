@@ -32,8 +32,11 @@ const validWatchedAt = (watchedAt, res) => {
   }
 };
 
-const validRate = (rate, res) => {
+const hasRate = (rate, res) => {
   if (rate === undefined) return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
+};
+
+const validRate = (rate, res) => {
   if (!(Number.isInteger(rate) && rate >= 1 && rate <= 5)) {
     return res.status(400).json({
       message: 'O campo "rate" deve ser um número inteiro entre 1 e 5',
@@ -44,6 +47,7 @@ const validRate = (rate, res) => {
 const validTalk = (talk, res) => {
   if (!talk) return res.status(400).json({ message: 'O campo "talk" é obrigatório' });
   return validWatchedAt(talk.watchedAt, res)
+    || hasRate(talk.rate, res)
     || validRate(talk.rate, res);
 };
 
@@ -64,7 +68,16 @@ const tokenValidation = (req, res, next) => {
   return validToken(token, res) || next();
 };
 
+const rateValidation = (req, res, next) => {
+  const { rate } = req.query;
+
+  if (!rate) return next();
+
+  return validRate(+rate, res) || next();
+};
+
 module.exports = {
   talkerValidation,
   tokenValidation,
+  rateValidation,
 };
