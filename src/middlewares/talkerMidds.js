@@ -66,6 +66,18 @@ const deleteTalker = async (id) => {
   return true;
 };
 
+const patchRate = async (id, rate) => {
+  const talkersList = await readFile();
+  const talker = talkersList.find((element) => element.id === +id);
+
+  if (!talker) return false;
+
+  talker.talk.rate = rate;
+
+  writeFile(talkersList);
+  return true;
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
@@ -75,4 +87,5 @@ module.exports = {
   getTalkerByName,
   getTalkerByRate,
   getTalkerByDate,
+  patchRate,
 };

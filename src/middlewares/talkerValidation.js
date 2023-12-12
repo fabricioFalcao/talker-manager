@@ -90,9 +90,18 @@ const dateValidation = (req, res, next) => {
   next();
 };
 
+const ratePatchValidation = (req, res, next) => {
+  const { rate } = req.body;
+
+  return hasRate(rate, res)
+    || validRate(rate, res)
+    || next();
+};
+
 module.exports = {
   talkerValidation,
   tokenValidation,
   rateValidation,
   dateValidation,
+  ratePatchValidation,
 };
