@@ -7,8 +7,15 @@ const {
   deleteTalker,
   getTalkerByName,
   getTalkerByRate,
+  getTalkerByDate,
 } = require('../middlewares/talkerMidds');
-const { talkerValidation, tokenValidation, rateValidation } = require('../middlewares/talkerValidation');
+
+const {
+  talkerValidation,
+  tokenValidation,
+  rateValidation,
+  dateValidation,
+} = require('../middlewares/talkerValidation');
 
 const talkerRouter = Router();
 
@@ -17,10 +24,11 @@ talkerRouter.get('/', async (_req, res) => {
   res.status(200).send(talker);
 });
 
-talkerRouter.get('/search', tokenValidation, rateValidation, async (req, res) => {
-  const { q, rate } = req.query;
+talkerRouter.get('/search', tokenValidation, rateValidation, dateValidation, async (req, res) => {
+  const { q, rate, date } = req.query;
   const qResult = await getTalkerByName(q);
-  const result = await getTalkerByRate(qResult, rate);
+  const rResult = getTalkerByRate(qResult, rate);
+  const result = getTalkerByDate(rResult, date);
   res.status(200).json(result);
 });
 
