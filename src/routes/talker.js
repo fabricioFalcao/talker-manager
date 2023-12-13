@@ -19,11 +19,21 @@ const {
   ratePatchValidation,
 } = require('../middlewares/talkerValidation');
 
+const getAllFromDB = require('../db/dbMidds');
+
+const dbDataFormat = require('../utils/dbDataFormat');
+
 const talkerRouter = Router();
 
 talkerRouter.get('/', async (_req, res) => {
-  const talker = await getAllTalkers();
-  res.status(200).send(talker);
+  const talkers = await getAllTalkers();
+  res.status(200).send(talkers);
+});
+
+talkerRouter.get('/db', async (_req, res) => {
+  const [data] = await getAllFromDB();
+  const talkers = dbDataFormat(data);
+  res.status(200).json(talkers);
 });
 
 talkerRouter.get('/search', tokenValidation, rateValidation, dateValidation, async (req, res) => {
