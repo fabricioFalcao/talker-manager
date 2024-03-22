@@ -1,10 +1,15 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+### Talker Registration Application
+
+👨‍💻 **What was developed**
+
+In the Talker Registration Application project, the following tasks were completed:
+
+- Developed a CRUD (Create, Read, Update, Delete) API for talkers (speakers).
+- Implemented endpoints to read and write to a file using the fs module.
+
+⚙️ **Main Technologies and Tools**
+
+- Docker
+- Node.js
+- Express.js
+- fs module
